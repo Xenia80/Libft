@@ -6,7 +6,7 @@
 /*   By: pnona <pnona@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/16 18:01:04 by pnona             #+#    #+#             */
-/*   Updated: 2021/10/25 22:16:16 by pnona            ###   ########.fr       */
+/*   Updated: 2021/11/28 16:57:36 by pnona            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	ft_atoi(const char *str)
 {
-	int	i;
-	int	sign;
-	int	result;
+	long long	i;
+	long long	sign;
+	long long	result;
 
 	i = 0;
 	sign = 1;
@@ -24,16 +24,14 @@ int	ft_atoi(const char *str)
 	while ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
 		i++;
 	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i] == '-')
-			sign = sign * -1;
+		sign = 1 - 2 * (str[i++] == '-');
+	while (str[i] == '0')
 		i++;
-	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		if (i > 19 && sign == -1)
+		if (result * sign < (-9223372036854775807L))
 			return (0);
-		if (i > 19 && sign == 1)
+		if (result * sign > (9223372036854775807L))
 			return (-1);
 		result = (result * 10) + (str[i] - 48);
 		i++;
